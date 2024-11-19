@@ -11,7 +11,7 @@ public class BSTree
 
    public BSTree()
    {
-   
+	   root = null;
        
    }
 
@@ -29,6 +29,13 @@ public class BSTree
      */
    public void insert(Integer target)
    {
+	   if(root == null) {
+		   root = new BSTNode<Integer>(target);
+		   return;
+	   }
+	   BSTNode<Integer> curr = root;
+	   
+	   curr.insert(target);
    }
 
 
@@ -38,7 +45,12 @@ public class BSTree
      */
    public Integer retrieve(Integer target)
    {
-	return null;
+	   if(root == null)
+	   {
+		   return null;
+	   }
+	   BSTNode<Integer> curr = root;
+	   return curr.retrieve(target);
    }
 
 
@@ -52,8 +64,12 @@ public class BSTree
      */
    public int retrieveDepth(Integer target)
    {
-	return 0;
-       
+	   if(root == null)
+	   {
+		   return 0;
+	   }
+	   BSTNode<Integer> curr = root;
+	   return curr.retrieveDepth(target);
    }
 
     

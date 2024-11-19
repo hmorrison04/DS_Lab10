@@ -13,7 +13,7 @@ public class BSTNode<T extends Comparable<T>>
    private T val;
    private BSTNode<T> left;
    private BSTNode<T> right;
-
+   private int depth = 0;
 
 
    public BSTNode(T val)
@@ -24,6 +24,9 @@ public class BSTNode<T extends Comparable<T>>
 
    public BSTNode(T val, BSTNode<T> l,BSTNode<T> r)
    {
+	   this.val = val;
+	   this.left = l;
+	   this.right = r;
    }
 
 
@@ -33,6 +36,29 @@ public class BSTNode<T extends Comparable<T>>
     */
    public void insert(T target)
    {
+	   
+	   if(right == null && val.compareTo(target) < 0) 
+	   {
+		   BSTNode<T> a = new BSTNode<T>(target,null, null);
+		   this.right = a;
+	   }
+	   if(left == null && val.compareTo(target) > 0) 
+	   {
+		   BSTNode<T> a = new BSTNode<T>(target,null, null);
+		   this.left = a;
+	   }
+	   if(val.compareTo(target) < 0)
+	   {
+		  val = this.right.val;
+		  right = this.right.right;
+		  insert(target);
+	   }
+	   if(this.val.compareTo(target) > 0)
+	   {
+		   val = this.left.val;
+		   left = this.left.left;
+		   insert(target);
+	   }
    }
 
 
@@ -42,7 +68,27 @@ public class BSTNode<T extends Comparable<T>>
     */
    public T retrieve(T target)
    {
-	return target;
+	    if(val.compareTo(target) == 0)
+	    {
+		    return target;
+	    }
+		if(right == null && left == null)
+		{
+			return null;
+		}
+		if(right.val.compareTo(target) > 0) {
+			val = this.right.val;
+			right = this.right.right;
+			retrieve(target);
+		}
+		
+		if(left.val.compareTo(target) > 0) {
+			val = this.left.val;
+			left = this.left.left;
+			retrieve(target);
+		}
+		
+	return retrieve(target);
    }
 
 
@@ -52,7 +98,33 @@ public class BSTNode<T extends Comparable<T>>
      */
    public int retrieveDepth(T target)
    {
-	return 0;
+	  // int depth = 0;
+	   if(val.compareTo(target) == 0)
+	   {
+		   return depth;
+	   }
+	   if (left == null && right == null)
+	   {
+		   return depth;
+	   }
+	   
+	   if(val.compareTo(target) < 0)
+	   {
+		  depth++;
+		  System.out.println(depth);
+		  val = this.right.val;
+		  right = this.right.right;
+		  retrieveDepth(target);
+		 
+	   }
+	   if(this.val.compareTo(target) > 0)
+	   {
+		   depth++;
+		   val = this.left.val;
+		   left = this.left.left;
+		   retrieveDepth(target);
+	   }
+	return retrieveDepth(target);
    }
 
    /**
