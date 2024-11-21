@@ -11,7 +11,7 @@ public class BSTree
 
    public BSTree()
    {
-	   root = null;//new BSTNode<Integer>(null);
+	   root = null;
        
    }
 
@@ -67,7 +67,7 @@ public class BSTree
 	   if(root == null) {
 		  return 0;
 	   }
-	   return root.retrieveDepth(target);
+	   return root.retrieveDepth(target, 0);
    }
 
     
@@ -178,7 +178,44 @@ public class BSTree
      */
    public boolean myEquals(BSTree that)
    {
-	return false;
+	   
+	if (this.isEmpty() == true && that.isEmpty() == true) {
+		return true;
+		
+	}
+	
+	if(that.root == null && root != null) 
+	{
+		return false;
+	}
+	
+	
+	if (root == null && that.root != null) 
+	{
+		return false;
+	}
+	
+	if(sum()!=that.sum())
+	{
+		return false;
+	}
+
+	if(getSize() != that.getSize())
+	{
+		return false;
+	}
+	
+	if(toList().size() != that.toList().size())
+	{
+		return false;
+	}
+	
+	if(largest() != that.largest())
+	{
+		return false;
+	}
+	//System.out.println("HI");
+	return this.root.myEquals(that.root);
    
    }
 

@@ -15,7 +15,7 @@ public class BSTNode<T extends Comparable<T>>
    private T val;
    private BSTNode<T> left;
    private BSTNode<T> right;
-   private int depth = 0;
+  // private int depth = 0;
    int hold = 0;
 
 
@@ -40,9 +40,6 @@ public class BSTNode<T extends Comparable<T>>
     */
    public void insert(T target)
    {
-	  
-	  // BSTNode<T> curr = new BSTNode<T>(val,left,right);
-	   //System.out.println(curr.val);
 	  if(this.val == null) {
 		   val = target;
 		   
@@ -60,25 +57,19 @@ public class BSTNode<T extends Comparable<T>>
 	 //target is less than current val
 	   if(left == null && val.compareTo(target) > 0) 
 	   {
-		  
 		   BSTNode<T> a = new BSTNode<T>(target,null, null);
 		   left = a;
-		   
 		   return;
 	   }
 	   if(val.compareTo(target) < 0)
 	   {
 		  right.insert(target);
-		 // val = right.val;
-		  //right = right.right;
-		  //insert(target);
+		
 	   }
 	   if(val.compareTo(target) > 0)
 	   {
 		   left.insert(target);
-		  // val = left.val;
-		   //left = left.left;
-		   //insert(target);
+		  
 	   }
    }
 
@@ -89,7 +80,6 @@ public class BSTNode<T extends Comparable<T>>
     */
    public T retrieve(T target)
    {
-	 //  System.out.println(val);
 	   if(this.val==null)
 	    {
 		  
@@ -129,73 +119,55 @@ public class BSTNode<T extends Comparable<T>>
        If it is present, what level is the node?
        If it is not present, what level would it be placed.
      */
-   public int retrieveDepth(T target)
+ 
+   public int retrieveDepth(T target, int depth)
    {
-	  depth = depth+=1;
-	  // int depth = 0;
-	  // System.out.println(target);
-	   //System.out.println(val);
-	   if (this.val == null)
-	   {	
-	   	   depth = 0;
-	   		
-		   return depth;
+	   if (val == null)
+	   {		   		
+		   return 0;
 	   }
 	 
 	   if(val.compareTo(target) == 0)
 	   {
-		  // hold = depth;
-		   //depth = 0;
+		  
 		   return depth;
-	   }
-	   
-	  
+	   } 
 	   
 	   //target > val
-	   if(val.compareTo(target) < 0 && right == null) {
-		   // depth++;
-			//hold = depth;
-		   
-			//depth = 0;
-		
-		   
+	   if(val.compareTo(target) < 0 && right == null)
+	   {
+		    depth++;
 			return depth; 
-		}
-	//  target < val
-		if(val.compareTo(target) > 0 && left == null) {
-			//depth++;
-			//val = this.left.val;
-			//left = this.left.left;
-			
-			//hold = depth;
-			
-			//depth = 0;
-			
+	   }
+	   
+	   //target < val
+		if(val.compareTo(target) > 0 && left == null) 
+		{	
+			depth++;
 			return depth;
 		}
 		
-		if(left == null || right == null) {
-			 //hold = depth;  
-			// depth = 0;
-			 
-			 return depth;
-		   }
-		 
-		 if (val.compareTo(target) < 0) {
-			 depth++;
-			 hold = depth;
-			
-			 return right.retrieveDepth(target);
-		 }
-		 
-		 if (val.compareTo(target) > 0) {
-			 depth++;
-			 hold = depth;
-			
-			 return left.retrieveDepth(target);
-		 }
+//		if(left == null || right == null) 
+//		{
+//			 depth++;
+//			 return depth;
+//		}
 		
-	return retrieveDepth(target);
+		 //val < target
+		 if (val.compareTo(target) < 0) 
+		 {
+			 depth++;
+			 return right.retrieveDepth(target,depth);
+		 }
+		 
+		 //val > target
+		 if (val.compareTo(target) > 0) 
+		 {
+			 depth++;
+			 return left.retrieveDepth(target,depth);
+		 }
+		 
+	return 0;
    }
 
    /**
@@ -259,18 +231,55 @@ public class BSTNode<T extends Comparable<T>>
     */
    public boolean myEquals(BSTNode<T> that)
    {
-	   if(that == null)
+	   if(that == null) {
+		   return false;
+	   }
+	   if(val == null && that.val == null)
+	   {
+		   return true;
+	   }
+	   if(that.val == null)
 	   {
 		   return false;
 	   }
-	   if(left == null && right == null && val == that.val) {
+	   if(val == null) 
+	   {
+		   return false;
+	   }
+	   
+	   
+	   if(left == null && right == null && val == that.val) 
+	   {
 		   return true;
 	   }
-	   if(left!= null && val == that.val) {
+	   if(left == null && that.left !=null) 
+	   {   
+		   return false;
+	   }
+	   
+	   if(right == null && that.right != null) 
+	   {
+		   return false;
+	   }
+	   
+	   if(left != null && that.left == null) 
+	   {
+		   return false;
+	   }
+	   
+	   if(right != null && that.right == null) 
+	   {
+		   return false;
+	   }
+	   
+	   if(left!= null && val == that.val) 
+	   {
 		   return left.myEquals(that.left);
 	   }
 	   
-	   if(right!= null && val == that.val) {
+	   
+	   if(right!= null && val == that.val) 
+	   {
 		   return right.myEquals(that.left);
 	   }
 	   
