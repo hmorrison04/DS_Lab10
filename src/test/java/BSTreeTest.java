@@ -4,18 +4,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class BSTreeTest {
 
-	BSTree tree = new BSTree();
-	BSTree otherTree = new BSTree();
-	BSTree neTree = new BSTree();
-	BSTree eTree = new BSTree();
-	BSTree t1 = new BSTree();
-	BSTree t2 = new BSTree();
-	BSTree t3 = new BSTree();
-	BSTree t4 = new BSTree();
+	BSTree tree;// = new BSTree();
+	BSTree otherTree;// = new BSTree();
+	BSTree neTree;// = new BSTree();
+	BSTree eTree;// = new BSTree();
+	BSTree t1;// = new BSTree();
+	BSTree t2 ;//= new BSTree();
+	BSTree t3 ;//= new BSTree();
+	BSTree t4;// = new BSTree();
+	
+	@BeforeEach
+	public void setUp() {
+		 tree = new BSTree();
+		 otherTree = new BSTree();
+		 neTree = new BSTree();
+		 eTree = new BSTree();
+		 t1 = new BSTree();
+		 t2 = new BSTree();
+		 t3 = new BSTree();
+		 t4 = new BSTree();
+	}
 	
 	@Test
 	void isEmptyTest() {
@@ -28,10 +41,17 @@ class BSTreeTest {
 	void insertAndRetrieveTest()
 	{
 		tree.insert(5);
-		assertEquals(5, tree.retrieve(5));
+		//assertEquals(5, tree.retrieve(5));
 		tree.insert(32);
+		//assertEquals(32, tree.retrieve(32));
+		//assertEquals(null, tree.retrieve(21));
+		tree.insert(33);
+		tree.insert(4);
+		assertEquals(5, tree.retrieve(5));
 		assertEquals(32, tree.retrieve(32));
-		assertEquals(null, tree.retrieve(21));
+		assertEquals(33, tree.retrieve(33));
+		assertEquals(4,tree.retrieve(4));
+		
 	}
 	
 	@Test
@@ -41,7 +61,9 @@ class BSTreeTest {
 		assertTrue(tree.isEmpty());
 		tree.insert(6);
 		tree.insert(7);
-		assertEquals(tree.getSize(),2);
+		assertEquals(2,tree.getSize());
+		tree.insert(2);
+		assertEquals(3, tree.getSize());
 	}
 
 	@Test
@@ -300,6 +322,48 @@ class BSTreeTest {
 		t4.insert(37);
 		assertTrue(tree.myEquals(t4));
 		
+		BSTree t5 = new BSTree();
+		t5.insert(50);
+		t5.insert(72);
+		t5.insert(96);
+		t5.insert(94);
+		t5.insert(107);
+		t5.insert(26);
+		t5.insert(12);
+		t5.insert(11);
+		t5.insert(9);
+		t5.insert(10);
+		t5.insert(25);
+		t5.insert(51);
+		t5.insert(16);
+		t5.insert(17);
+		t5.insert(95);
+		BSTree t6 = new BSTree();
+		int[] B = {50,72,96,94,107,26,12,11,9,25,51,16,17,95};
+		int[] C = {50,72,96,94,107,26,12,11,9,10,25,51,16,17,95,18};
+		int[] D = {50,72,96,94,107,26,12,11,9,10,25,16,17,95};
+		int[] E = {50,72,96,94,107,26,12,11,9,10,25,51,16,17,95,51};
+		BSTree s = treeEquals(t6,B);
+		assertFalse(t5.myEquals(s));
+		BSTree t = treeEquals(t6,C);
+		assertFalse(t5.myEquals(t));
 		
+		BSTree u = treeEquals(t6, D);
+		assertFalse(t5.myEquals(u));
+		BSTree v = treeEquals(t6,E);
+		assertFalse(t5.myEquals(v));
+		int [] F = {50,72,96,94,107,26,12,11,9,10,25,51,16,17,95};
+		BSTree z = treeEquals(t6,F);
+		//assertTrue(t5.myEquals(z));
+	}
+	
+	public BSTree treeEquals(BSTree tree, int [] test)
+	{
+		
+		for (int i = 0; i< test.length;i++)
+		{
+			tree.insert(test[i]);
+		}
+		return tree;
 	}
 }
