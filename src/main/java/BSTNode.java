@@ -47,7 +47,7 @@ public class BSTNode<T extends Comparable<T>>
 	   }
 	  
 	  //target is greater than current val
-	   if(right == null && val.compareTo(target) < 0) 
+	   if(right == null && val.compareTo(target) <= 0) 
 	   {
 		   BSTNode<T> a = new BSTNode<T>(target,null, null);
 		   right = a;
@@ -61,7 +61,7 @@ public class BSTNode<T extends Comparable<T>>
 		   left = a;
 		   return;
 	   }
-	   if(val.compareTo(target) < 0)
+	   if(val.compareTo(target) <= 0)
 	   {
 		  right.insert(target);
 		
@@ -147,12 +147,6 @@ public class BSTNode<T extends Comparable<T>>
 			return depth;
 		}
 		
-//		if(left == null || right == null) 
-//		{
-//			 depth++;
-//			 return depth;
-//		}
-		
 		 //val < target
 		 if (val.compareTo(target) < 0) 
 		 {
@@ -204,7 +198,7 @@ public class BSTNode<T extends Comparable<T>>
 	   		return;
 	   	}
 
-	   	if(left!= null) 
+	   	if(left != null) 
 	   	{
 	   		left.inOrderTraversal(consume);
 	   	}
@@ -234,56 +228,53 @@ public class BSTNode<T extends Comparable<T>>
 	   if(that == null) {
 		   return false;
 	   }
-	   if(val == null && that.val == null)
-	   {
-		   return true;
-	   }
-	   if(that.val == null)
-	   {
-		   return false;
-	   }
-	   if(val == null) 
+	   
+	   if (val.compareTo(that.val) != 0)
 	   {
 		   return false;
 	   }
 	   
-	   
-	   if(left == null && right == null && val == that.val) 
-	   {
-		   return true;
-	   }
-	   if(left == null && that.left !=null) 
-	   {   
+	   if(left == null && that.left != null) 
+	   {     
 		   return false;
 	   }
 	   
 	   if(right == null && that.right != null) 
 	   {
+		   
 		   return false;
 	   }
 	   
 	   if(left != null && that.left == null) 
-	   {
+	   {     
 		   return false;
 	   }
 	   
 	   if(right != null && that.right == null) 
 	   {
+		   
 		   return false;
 	   }
 	   
-	   if(left!= null && val == that.val) 
+	   
+	   
+	   if(left != null && val.compareTo(that.val) == 0) 
 	   {
-		   return left.myEquals(that.left);
+		   if(left.myEquals(that.left) == false) 
+		   {
+			   return false;
+		   }
 	   }
 	   
-	   
-	   if(right!= null && val == that.val) 
+	   if(right != null &&  val.compareTo(that.val) == 0) 
 	   {
-		   return right.myEquals(that.left);
+		   if(right.myEquals(that.right) == false) 
+		   {
+			   return false;
+		   }
 	   }
 	   
-	return false;
+	return true;
    
 
    }

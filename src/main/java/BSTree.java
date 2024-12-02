@@ -178,44 +178,43 @@ public class BSTree
      */
    public boolean myEquals(BSTree that)
    {
-	   
-	if (this.isEmpty() == true && that.isEmpty() == true) {
+	if (isEmpty() == true && that.isEmpty() == true) {
 		return true;
 		
 	}
 	
-	if(that.root == null && root != null) 
-	{
-		return false;
-	}
-	
-	
+//	if(that.root == null && root != null) 
+//	{
+//		return false;
+//	}
+//	
+//	
 	if (root == null && that.root != null) 
 	{
 		return false;
 	}
-	
-	if(sum()!=that.sum())
-	{
-		return false;
-	}
+//	
+//	if(this.sum()!=that.sum())
+//	{
+//		return false;
+//	}
+//
+//	if(this.getSize() != that.getSize())
+//	{
+//		return false;
+//	}
+//	for(int i = 0; i < toList().size(); i++) {
+//		if(toList().get(i) != this.toList().get(i)) {
+//			return false;
+//		}
+//	}
+//	
+//	if(this.largest() != that.largest())
+//	{
+//		return false;
+//	}
 
-	if(getSize() != that.getSize())
-	{
-		return false;
-	}
-	
-	if(toList().size() != that.toList().size())
-	{
-		return false;
-	}
-	
-	if(largest() != that.largest())
-	{
-		return false;
-	}
-	//System.out.println("HI");
-	return this.root.myEquals(that.root);
+	return root.myEquals(that.root);
    
    }
 
